@@ -60,15 +60,24 @@ print "$totalPaper WormBase papers found with medline accession number.\n";
 
 #------------Build AO Name hash-------------------------------------------
 $query="QUERY FIND Condition Tissue; follow Tissue";
-my ($a, $aname);
+my ($a, $aname, $def);
 my %AOName;
 my @AO = $db->find($query);
+
+
+open (OUT2, ">AnatomyTable.csv") || die "cannot open $!\n";
+print OUT2 "Anatomy name\tAnatomy term\tDefinition\n";
 foreach $a (@AO) {
         if ($a->Term) {
 	    $aname = $a->Term;
 	    $AOName{$a} = $aname;
+	    if ($a->Definition) {
+		$def = $a->Definition;
+		print OUT2 "$aname\t$a\t$def\n";
+	    }
 	}
 }
+close (OUT2);
 print scalar @AO, " Anatomy_term involved in Microarray.\n";
 #------------------Done--------------------------------------------------
 
@@ -78,12 +87,21 @@ $query="QUERY FIND Condition Life_stage; follow Life_stage";
 my ($ls, $lsname);
 my %LSName;
 my @LS = $db->find($query);
+
+open (OUT3, ">LifeStageTable.csv") || die "cannot open $!\n";
+print OUT3 "Anatomy name\tAnatomy term\tDefinition\n";
 foreach $ls (@LS) {
         if ($ls->Public_name) {
 	    $lsname = $ls->Public_name;
 	    $LSName{$ls} = $lsname;
+	    if ($ls->Definition){
+		$def = $ls->Definition;
+		print OUT3 "$lsname\t$ls\t$def\n";
+	    }
 	}
 }
+close (OUT3);
+
 print scalar @LS, " Life_stage involved in Microarray.\n";
 #------------------Done--------------------------------------------------
 
