@@ -8,7 +8,8 @@ my @exprCluster;
 my %geneName;
 my ($g, $gname, $AllCluster);
 
-print "This script create Gene-ExprCluster table from current WS release.\n";
+print "This script create Gene-ExprCluster table from current WS release, and create a list of merged dead gene objects.\n";
+
 
 my $acedbpath='/home/citace/WS/acedb/';
 my $tace='/usr/local/bin/tace';
@@ -175,6 +176,34 @@ foreach $e (@exprCluster) {
     
     print OUT2 "$e\t$description\t$spe\t$ref\t$tissue\t$ls\t$reg_mol\t$reg_gene\t$reg_treatment\t$process\n";
 }
-
 close (OUT2);
+
+
+
+#-----------------Build Dead Gene table---------------------------
+open (OUT3, ">DeadGeneList.csv") || die "cannot open $!\n";
+print OUT3 "Dead Gene\tMerged_into\n";
+
+$query="QUERY FIND Gene Dead AND Merged_into = *";
+my ($merged_into, $newName);
+
+@gene = $db->find($query);
+foreach $g (@gene) {
+        if ($g->Public_name) {
+	    $gname = $g->Public_name;
+	    $geneName{$g} = $gname;
+	} else {
+	    $geneName{$g} = "";
+	} 
+	$merged_into = $g->Merged_into;
+	if ($merged_into -> Public_name) {
+	    $newName = $merged_into -> Public_name;
+	} else {
+	    $newName = "";
+	}
+	print OUT3 "$g($geneName{$g})\t$merged_into($newName)\n";
+}
+print scalar @gene, " dead genes found in database .\n";
+close (OUT3);
+
 $db->close();
