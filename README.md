@@ -27,3 +27,9 @@ AnatomyTable.csv
 LifeStageTable.csv
 MrExpTable.csv
 
+6. makeRNAiPhenoTable.pl
+RNAi phenotype table, with Species, Gene name, Observed_Phenotype and Not_observed-phenotype  
+
+RNAiPhenotype.csv
+
+
