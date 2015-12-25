@@ -126,7 +126,7 @@ foreach $m (@mrExp) {
 	    if ($m-> Species) {
 		$spe = $m-> Species;
 	    } else {
-		$spe = $m-> Species;
+		$spe = "N.A.";
 	    }
 	    
 	    if ($PaperGDS{$paper}) {
