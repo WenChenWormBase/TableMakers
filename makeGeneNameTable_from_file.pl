@@ -10,6 +10,9 @@ my @tmp;
 
 open (IN, "/home/wen/Tables/GeneIdentity/WBGeneIdentity.ace") || die "cannot open WBGeneIdentity.ace!\n";
 open (OUT, ">WBGeneName.csv") || die "cannot open $!\n";
+#open (IN, "/home/wen/Tables/GeneIdentity/test.ace") || die "cannot open test.ace!\n";
+#open (OUT, ">testWBGeneName.csv") || die "cannot open $!\n";
+
 print OUT "Gene\tPublic Name\tSequence Name\tUniprot\tTreeFam\tRefSeq_mRNA\tRefSeq_protein\n";
 
 $line = <IN>;
@@ -32,7 +35,11 @@ while ($line =<IN>) {
 	$pub_name = $tmp[1];
     }  elsif ($line =~ /UniProt/) {
 	@tmp = split '"', $line;
-	$uniprot = $tmp[5];
+	if ($uniprot eq "N.A.") {
+	    $uniprot = $tmp[5];
+	} else {
+	    $uniprot = join ",",  $uniprot, $tmp[5];
+	}
     }  elsif ($line =~ /TREEFAM/) {
 	@tmp = split '"', $line;
 	$treefam = $tmp[5];
@@ -45,7 +52,11 @@ while ($line =<IN>) {
 	}
     }  elsif (($line =~ /RefSeq/) && ($line =~ /protein/)) {
 	@tmp = split '"', $line;
-	$refSeqProtein = $tmp[5];
+	if ($refSeqProtein eq "N.A.") {
+	    $refSeqProtein = $tmp[5];
+	} else {
+	    $refSeqProtein = join ",",  $refSeqProtein, $tmp[5];
+	}
     } elsif  ($line eq "") {
 	print OUT "$g\t$pub_name\t$seq_name\t$uniprot\t$treefam\t$refSeqRNA\t$refSeqProtein\n";
     }

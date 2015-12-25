@@ -17,37 +17,7 @@ my $tace='/usr/local/bin/tace';
 print "connecting to database... ";
 my $db = Ace->connect(-path => $acedbpath,  -program => $tace) || die print "Connection failure: ", Ace->error;
 
-#-----------------Build Gene - Gene Name table---------------------------
-#my $query="QUERY FIND RNAi Strain = N2 OR Genotype = N2; follow Gene";
-
-#@gene = $db->find($query);
-#foreach $g (@gene) {
-#        if ($g->Public_name) {
-#	    $gname = $g->Public_name;
-#	    $geneName{$g} = $gname;
-#	} else {
-#	    $geneName{$g} = "";
-#	}
-#}
-#print scalar @gene, " genes found in database with RNAi results.\n";
-
-
-#-----------------Build Phenotype - Phenotype Name table---------------------------
-#$query="QUERY FIND RNAi Strain = N2 OR Genotype = N2; follow Phenotype";
-
-#@p = $db->find($query);
-#foreach $p (@phenotype) {
-#        if ($p->Public_name) {
-#	    $pname = $p->Public_name;
-#	    $pheName{$p} = $pname;
-#	} else {
-#	    $pheName{$p} = "";
-#	}
-#}
-#print scalar @phenotype, " phenotypes found in database with RNAi results.\n";
-
-
-#------------------Build Expression cluster Description table ------------
+#------------------Build Phenotype Description table ------------
 my ($spe, $ref, $t, $i, $r, $pname, $all_gene, $all_phenotype, $no_phenotype);
 
 my @tmp = ();
