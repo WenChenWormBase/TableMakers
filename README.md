@@ -27,16 +27,7 @@ AnatomyTable.csv
 LifeStageTable.csv
 MrExpTable.csv
 
-6. makeRNAiPhenoTable.pl
-RNAi phenotype table, with Species, Gene name, Observed_Phenotype and Not_observed-phenotype  
+6. dumpAceFiles.sh & makeENCODE_FPKM.pl
 
-RNAiPhenotype.csv
-
-7. dumpAceFiles.sh
-This script dump out Identify tag of all WBGene* Gene objects. The result ace file WBGeneIdentity.ace under /home/wen/Tables/GeneIdentity/ is required for the next script makeGeneNameTable_from_file.pl to run. 
-
-8. makeGeneNameTable_from_file.pl
-This script takes /home/wen/Tables/GeneIdentity/WBGeneIdentity.ace file and create a table listing Public Name, Sequence Name, Uniprot, TreeFam, RefSeq_mRNA, RefSeq_protein IDs.
- 
-WBGeneName.csv
+create a tab-delimited file for modENCODE data displayed on WormBase FPKM graph.
 
